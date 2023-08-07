@@ -1,0 +1,235 @@
+﻿@model System.Data.DataSet
+@{
+    ViewBag.Title = "ReportView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dates = DateTime.Now.ToString("dd MMM yyyy");
+    List<string> catsList = new List<string>();
+    List<string> prodsList = new List<string>();
+}
+<link href="~/Content/assets/css/pdfstyles.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+<style>
+    page[size="A4"][layout="portrait"] {
+        width: 29.7cm;
+        height: 21cm;
+    }
+
+    page-container {
+        position: relative;
+        min-height: 100vh;
+    }
+
+    content-wrap {
+        padding-bottom: 2.5rem; /* Footer height */
+    }
+
+    .footer {
+/*        position: absolute;
+*/        left: 0;
+        right: 0;
+        bottom: 0px;
+        background-color: #ffffff;
+        padding-right: 1.5cm;
+        padding-left: 1.5cm;
+        height: 5rem;
+    }
+</style>
+<div class="row html-content content-template">
+    <div class="col-sm-12">
+        <div class="card">
+
+            <a href="@Url.Action("ReportViewPartial", "ProductPricings")">Download pdf</a>
+            <div class="card col-md-12" id="PrintPDF">
+                <div>
+                    <img src="~/Reports/Header.png"  height="150px;" width="100%;" />
+                </div>
+                <div class="table-responsive">
+                    <table class="tablepdf">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="borderbottom">
+                                <td>
+                                </td>
+                                <td style="vertical-align: bottom;">
+                                    <p class="headings">
+                                        Shipping Period
+                                    </p>
+                                </td>
+                                <td style="vertical-align: bottom;">
+                                    <p class="headings">
+                                        Price
+                                    </p>
+                                </td>
+                                <td style="vertical-align: bottom;">
+                                    <p class="headings">
+                                        Terms
+                                    </p>
+                                </td>
+                            </tr>
+                            @foreach (System.Data.DataRow roww in Model.Tables[0].Rows)
+                            {
+                                var cat = roww["Name1"].ToString();
+                                var prod = roww["Name"].ToString();
+                                if (!catsList.Contains(cat))
+                                {
+                                    catsList.Add(cat);
+                                    <tr>
+                                        <td>
+                                            <p class="catheadings">
+                                                @cat
+                                            </p>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    if (!prodsList.Contains(prod))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Name"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Name2"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Price"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Notes"].ToString()
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                                else if (!prodsList.Contains(prod))
+                                {
+                                    <tr>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Name"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Name2"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Price"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Notes"].ToString()
+                                            </p>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="col-md-12">
+            <div class="row col-md-12" style="float:left;width:100%;">
+                <p class="col-md-12" style="color: black; font-weight: bold; font-family: 'Baskerville Old Face'; font-size: 14px; height: 10px;">
+                    Contact:
+                </p>
+                </div>
+                <div class="row col-md-12" style="float:left;width:100%;">
+                    <div class="col-md-4" style="float:left;width:33%;word-wrap:">
+                        <p class="col-md-3" style="color: black; font-family: 'Baskerville Old Face'; font-size: 12px; height: 10px;">
+                            Hans&nbsp;&&nbsp;Willem&nbsp;de&nbsp;Heer
+                        </p>
+                    </div>
+                    <div class="col-md-4" style="float:left;width:33%;">
+                        <p class="col-md-3" style="color: black; font-family: 'Baskerville Old Face'; font-size: 12px; height: 10px;">
+                            +256&nbsp;702&nbsp;244&nbsp;244&nbsp;or&nbsp;+256&nbsp;707&nbsp;009&nbsp;166
+                        </p>
+                    </div>
+                    <div class="col-md-4" style="float:left;width:33%;">
+                        <p class="col-md-3" style="color: black; font-family: 'Baskerville Old Face'; font-size: 12px; height: 10px;">
+                            Brokerage@jdhcoffeeconsulting.com
+                        </p>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+</footer>
+</div>
+<script>
+    jQuery(document).bind("keyup keydown", function (e) {
+        if (e.ctrlKey && e.keyCode == 80) {
+            var divToPrint = document.getElementById('DivIdToPrint');
+
+            var newWin = window.open('', 'Print-Window');
+
+            newWin.document.open();
+
+            newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+
+            newWin.document.close();
+
+            setTimeout(function () { newWin.close(); }, 10);
+            return false;
+        }
+    });
+
+
+
+</script>
+<script>
+    //$("#btnSubmit").click(function () {
+    //    $("input[name='ExportData']").val($("#PrintPDF").html());
+    //});
+     @*$.ajax({
+            url: "@Url.Action("ReportViewPartial", "ProductPricings")",
+            type: "Get",
+            //contentType: "application/json",
+            //dataType: "json",
+            //data: JSON.stringify(data),
+            success: function (results) {
+                //alert(url);
+                alert("Success");
+            },
+
+            error: function (e) {
+                alert("Fail");
+            }
+        });*@
+</script>

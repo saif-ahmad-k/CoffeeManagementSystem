@@ -1,0 +1,84 @@
+﻿@model CoffeePricingMgt.Models.tblProductPricing
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content container-fluid">
+        <div class="card mb-4 mt-3" style="padding-top:10px">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Edit</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm">
+                        <form class="needs-validation" novalidate>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(p => p.ID)
+                            @Html.HiddenFor(p => p.CreatedDate)
+                            @Html.HiddenFor(p => p.PricingDate)
+                            @Html.HiddenFor(p => p.UserID)
+                            <div class="form-group">
+                                @Html.Label("Select Origin", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12 mb-3">
+                                    @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control", @onchange = "CategoryChanged(this.value);" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Select Grade", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12 mb-3">
+                                    @Html.DropDownList("ProductID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+            @Html.Label("Pricing Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12 mb-3">
+                @Html.EditorFor(p => p.PricingDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @type = "date" } })
+            </div>
+        </div>*@
+                            <div class="form-group">
+                                @Html.Label("Price", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12 mb-3">
+                                    @Html.EditorFor(p => p.Price, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Select Term", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12 mb-3">
+                                    @Html.DropDownList("Notes", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Select Shipping Period", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12 mb-3">
+                                    @Html.DropDownList("ShippingPeriodID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <div class=" row pull-right">
+                                <button type="submit" id="btnSave" class="btn btn-primary" style="padding-right:15px">Save</button>
+                                <div class="mt-0 btn btn-warning">@Html.ActionLink("Back to List", "Index")</div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+        let now = new Date(@Html.Raw(Model.PricingDate.ToShortDateString()));
+        let year=@Html.Raw(Model.PricingDate.Year);
+    let day = ("0" + @Html.Raw(Model.PricingDate.Day)).slice(-2);
+    let month = ("0" + (@Html.Raw(Model.PricingDate.Month))).slice(-2);
+
+    let today = (year) + "-" + (month) + "-" + (day);
+
+        $('#PricingDate').val(today);
+</script>

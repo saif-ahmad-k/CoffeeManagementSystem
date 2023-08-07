@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="140c2c2eafa148e69dd4ff553a70ebb2" Name="Diagram1">
+        <EntityTypeShape EntityType="DataContextModel.tblCategory" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="DataContextModel.tblProduct" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="DataContextModel.tblProductPricing" Width="1.5" PointX="7.5" PointY="2.125" />
+        <EntityTypeShape EntityType="DataContextModel.tblShippingPeriod" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="DataContextModel.tblUser" Width="1.5" PointX="0.75" PointY="2.625" />
+        <AssociationConnector Association="DataContextModel.FK__tblCatego__UserI__398D8EEE" />
+        <AssociationConnector Association="DataContextModel.FK__tblProduc__Categ__3C69FB99" />
+        <AssociationConnector Association="DataContextModel.FK__tblProduc__Produ__656C112C" />
+        <AssociationConnector Association="DataContextModel.FK__tblProduc__UserI__3D5E1FD2" />
+        <AssociationConnector Association="DataContextModel.FK__tblProduc__Shipp__6754599E" />
+        <AssociationConnector Association="DataContextModel.FK__tblProduc__UserI__66603565" />
+        <AssociationConnector Association="DataContextModel.FK__tblShippi__UserI__5CD6CB2B" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

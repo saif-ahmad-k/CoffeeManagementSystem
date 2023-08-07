@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sequance" Type="int" />
+        </EntityType>
+        <EntityType Name="tblProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProductPricing">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="PricingDate" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="nvarchar" MaxLength="100" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ShippingPeriodID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblShippingPeriod">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <Association Name="FK__tblCatego__UserI__398D8EEE">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCategory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Categ__3C69FB99">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="1" />
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Produ__656C112C">
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="1" />
+          <End Role="tblProductPricing" Type="Self.tblProductPricing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduct">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblProductPricing">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Shipp__6754599E">
+          <End Role="tblShippingPeriod" Type="Self.tblShippingPeriod" Multiplicity="0..1" />
+          <End Role="tblProductPricing" Type="Self.tblProductPricing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblShippingPeriod">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblProductPricing">
+              <PropertyRef Name="ShippingPeriodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__UserI__3D5E1FD2">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__UserI__66603565">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblProductPricing" Type="Self.tblProductPricing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProductPricing">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblShippi__UserI__5CD6CB2B">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblShippingPeriod" Type="Self.tblShippingPeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblShippingPeriod">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="pFOBOfferList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DataContextModelStoreContainer">
+          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProduct" EntityType="Self.tblProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProductPricing" EntityType="Self.tblProductPricing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblShippingPeriod" EntityType="Self.tblShippingPeriod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblCatego__UserI__398D8EEE" Association="Self.FK__tblCatego__UserI__398D8EEE">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblCategory" EntitySet="tblCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Categ__3C69FB99" Association="Self.FK__tblProduc__Categ__3C69FB99">
+            <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblProduct" EntitySet="tblProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Produ__656C112C" Association="Self.FK__tblProduc__Produ__656C112C">
+            <End Role="tblProduct" EntitySet="tblProduct" />
+            <End Role="tblProductPricing" EntitySet="tblProductPricing" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Shipp__6754599E" Association="Self.FK__tblProduc__Shipp__6754599E">
+            <End Role="tblShippingPeriod" EntitySet="tblShippingPeriod" />
+            <End Role="tblProductPricing" EntitySet="tblProductPricing" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__UserI__3D5E1FD2" Association="Self.FK__tblProduc__UserI__3D5E1FD2">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblProduct" EntitySet="tblProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__UserI__66603565" Association="Self.FK__tblProduc__UserI__66603565">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblProductPricing" EntitySet="tblProductPricing" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblShippi__UserI__5CD6CB2B" Association="Self.FK__tblShippi__UserI__5CD6CB2B">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblShippingPeriod" EntitySet="tblShippingPeriod" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DataContext" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="pFOBOfferList" ReturnType="Collection(DataContextModel.pFOBOfferList_Result)" />
+          <EntitySet Name="tblCategories" EntityType="DataContextModel.tblCategory" />
+          <EntitySet Name="tblProducts" EntityType="DataContextModel.tblProduct" />
+          <EntitySet Name="tblProductPricings" EntityType="DataContextModel.tblProductPricing" />
+          <EntitySet Name="tblShippingPeriods" EntityType="DataContextModel.tblShippingPeriod" />
+          <EntitySet Name="tblUsers" EntityType="DataContextModel.tblUser" />
+          <AssociationSet Name="FK__tblCatego__UserI__398D8EEE" Association="DataContextModel.FK__tblCatego__UserI__398D8EEE">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblCategory" EntitySet="tblCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Categ__3C69FB99" Association="DataContextModel.FK__tblProduc__Categ__3C69FB99">
+            <End Role="tblCategory" EntitySet="tblCategories" />
+            <End Role="tblProduct" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Produ__656C112C" Association="DataContextModel.FK__tblProduc__Produ__656C112C">
+            <End Role="tblProduct" EntitySet="tblProducts" />
+            <End Role="tblProductPricing" EntitySet="tblProductPricings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__UserI__3D5E1FD2" Association="DataContextModel.FK__tblProduc__UserI__3D5E1FD2">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblProduct" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__Shipp__6754599E" Association="DataContextModel.FK__tblProduc__Shipp__6754599E">
+            <End Role="tblShippingPeriod" EntitySet="tblShippingPeriods" />
+            <End Role="tblProductPricing" EntitySet="tblProductPricings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProduc__UserI__66603565" Association="DataContextModel.FK__tblProduc__UserI__66603565">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblProductPricing" EntitySet="tblProductPricings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblShippi__UserI__5CD6CB2B" Association="DataContextModel.FK__tblShippi__UserI__5CD6CB2B">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblShippingPeriod" EntitySet="tblShippingPeriods" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="pFOBOfferList_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="PricingDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Guid" Name="UserID" Nullable="false" />
+          <Property Type="Int32" Name="ID1" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="CategoryID" Nullable="false" />
+          <Property Type="Guid" Name="UserID1" Nullable="false" />
+          <Property Type="Int32" Name="ID2" Nullable="false" />
+          <Property Type="String" Name="Name1" Nullable="false" MaxLength="255" />
+          <Property Type="Guid" Name="UserID2" Nullable="false" />
+          <Property Type="Guid" Name="Id3" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="40" />
+        </ComplexType>
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="Sequance" Type="Int32" />
+          <NavigationProperty Name="tblUser" Relationship="DataContextModel.FK__tblCatego__UserI__398D8EEE" FromRole="tblCategory" ToRole="tblUser" />
+          <NavigationProperty Name="tblProducts" Relationship="DataContextModel.FK__tblProduc__Categ__3C69FB99" FromRole="tblCategory" ToRole="tblProduct" />
+        </EntityType>
+        <EntityType Name="tblProduct">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="tblCategory" Relationship="DataContextModel.FK__tblProduc__Categ__3C69FB99" FromRole="tblProduct" ToRole="tblCategory" />
+          <NavigationProperty Name="tblProductPricings" Relationship="DataContextModel.FK__tblProduc__Produ__656C112C" FromRole="tblProduct" ToRole="tblProductPricing" />
+          <NavigationProperty Name="tblUser" Relationship="DataContextModel.FK__tblProduc__UserI__3D5E1FD2" FromRole="tblProduct" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblProductPricing">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PricingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="ShippingPeriodID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="tblProduct" Relationship="DataContextModel.FK__tblProduc__Produ__656C112C" FromRole="tblProductPricing" ToRole="tblProduct" />
+          <NavigationProperty Name="tblShippingPeriod" Relationship="DataContextModel.FK__tblProduc__Shipp__6754599E" FromRole="tblProductPricing" ToRole="tblShippingPeriod" />
+          <NavigationProperty Name="tblUser" Relationship="DataContextModel.FK__tblProduc__UserI__66603565" FromRole="tblProductPricing" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblShippingPeriod">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="tblProductPricings" Relationship="DataContextModel.FK__tblProduc__Shipp__6754599E" FromRole="tblShippingPeriod" ToRole="tblProductPricing" />
+          <NavigationProperty Name="tblUser" Relationship="DataContextModel.FK__tblShippi__UserI__5CD6CB2B" FromRole="tblShippingPeriod" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCategories" Relationship="DataContextModel.FK__tblCatego__UserI__398D8EEE" FromRole="tblUser" ToRole="tblCategory" />
+          <NavigationProperty Name="tblProducts" Relationship="DataContextModel.FK__tblProduc__UserI__3D5E1FD2" FromRole="tblUser" ToRole="tblProduct" />
+          <NavigationProperty Name="tblProductPricings" Relationship="DataContextModel.FK__tblProduc__UserI__66603565" FromRole="tblUser" ToRole="tblProductPricing" />
+          <NavigationProperty Name="tblShippingPeriods" Relationship="DataContextModel.FK__tblShippi__UserI__5CD6CB2B" FromRole="tblUser" ToRole="tblShippingPeriod" />
+        </EntityType>
+        <Association Name="FK__tblCatego__UserI__398D8EEE">
+          <End Type="DataContextModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="DataContextModel.tblCategory" Role="tblCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCategory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Categ__3C69FB99">
+          <End Type="DataContextModel.tblCategory" Role="tblCategory" Multiplicity="1" />
+          <End Type="DataContextModel.tblProduct" Role="tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Produ__656C112C">
+          <End Type="DataContextModel.tblProduct" Role="tblProduct" Multiplicity="1" />
+          <End Type="DataContextModel.tblProductPricing" Role="tblProductPricing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduct">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblProductPricing">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__UserI__3D5E1FD2">
+          <End Type="DataContextModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="DataContextModel.tblProduct" Role="tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__Shipp__6754599E">
+          <End Type="DataContextModel.tblShippingPeriod" Role="tblShippingPeriod" Multiplicity="0..1" />
+          <End Type="DataContextModel.tblProductPricing" Role="tblProductPricing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblShippingPeriod">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblProductPricing">
+              <PropertyRef Name="ShippingPeriodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProduc__UserI__66603565">
+          <End Type="DataContextModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="DataContextModel.tblProductPricing" Role="tblProductPricing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProductPricing">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblShippi__UserI__5CD6CB2B">
+          <End Type="DataContextModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="DataContextModel.tblShippingPeriod" Role="tblShippingPeriod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblShippingPeriod">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataContextModelStoreContainer" CdmEntityContainer="DataContext">
+          <FunctionImportMapping FunctionImportName="pFOBOfferList" FunctionName="DataContextModel.Store.pFOBOfferList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DataContextModel.pFOBOfferList_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PricingDate" ColumnName="PricingDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID1" ColumnName="ID1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="UserID1" ColumnName="UserID1" />
+                <ScalarProperty Name="ID2" ColumnName="ID2" />
+                <ScalarProperty Name="Name1" ColumnName="Name1" />
+                <ScalarProperty Name="UserID2" ColumnName="UserID2" />
+                <ScalarProperty Name="Id3" ColumnName="Id3" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblCategories">
+            <EntityTypeMapping TypeName="DataContextModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="Sequance" ColumnName="Sequance" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProducts">
+            <EntityTypeMapping TypeName="DataContextModel.tblProduct">
+              <MappingFragment StoreEntitySet="tblProduct">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductPricings">
+            <EntityTypeMapping TypeName="DataContextModel.tblProductPricing">
+              <MappingFragment StoreEntitySet="tblProductPricing">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ShippingPeriodID" ColumnName="ShippingPeriodID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PricingDate" ColumnName="PricingDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblShippingPeriods">
+            <EntityTypeMapping TypeName="DataContextModel.tblShippingPeriod">
+              <MappingFragment StoreEntitySet="tblShippingPeriod">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="DataContextModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

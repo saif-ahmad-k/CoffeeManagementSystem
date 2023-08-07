@@ -1,0 +1,157 @@
+﻿@model System.Data.DataSet
+@{
+    ViewBag.Title = "ReportView";
+    Layout = "~/Views/Shared/_LayoutPdf.cshtml";
+    var dates = DateTime.Now.ToString("dd MMM yyyy");
+    List<string> catsList = new List<string>();
+    List<string> prodsList = new List<string>();
+}
+
+<style>
+    /*table {
+        border-top: 0 !important;
+        max-width: 2480px;
+        max-width: 2480px;
+        width: 100%;
+    }
+
+        #table th, table td {*/
+    /*border-top: 1 !important;*/
+    /*width: auto;
+            overflow: hidden;
+            border-color:black;
+            border-block-color:black;
+        }*/
+</style>
+<div class="row html-content content-template">
+    <div class="col-sm-12">
+        <div class="">
+            @*@using (Html.BeginForm("Export", "ProductPricings", FormMethod.Post))
+            {
+                <input type="hidden" name="ExportData" />
+                <input type="submit" id="btnSubmit" value="Export" />
+            }*@
+            <div class="col-md-12" id="PrintPDF">
+                <div>
+                    <img src="~/Reports/Header.png" height="150px;" width="100%;" />
+                </div>
+                <div class="">
+                    <table class="tablepdf">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="borderbottom">
+                                <td>
+                                </td>
+                                <td style="vertical-align: bottom;">
+                                    <p class="headings">
+                                        Shipping Period
+                                    </p>
+                                </td>
+                                <td style="vertical-align: bottom;">
+                                    <p class="headings">
+                                        Price
+                                    </p>
+                                </td>
+                                <td style="vertical-align: bottom;">
+                                    <p class="headings">
+                                        Terms
+                                    </p>
+                                </td>
+                            </tr>
+                            @foreach (System.Data.DataRow roww in Model.Tables[0].Rows)
+                            {
+                                var cat = roww["Name1"].ToString();
+                                var prod = roww["Name"].ToString();
+                                if (!catsList.Contains(cat))
+                                {
+                                    catsList.Add(cat);
+                                    <tr>
+                                        <td>
+                                            <p class="catheadings">
+                                                @cat
+                                            </p>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    if (!prodsList.Contains(prod))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Name"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Name2"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Price"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Notes"].ToString()
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                                else if (!prodsList.Contains(prod))
+                                {
+                                    <tr>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Name"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Name2"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Price"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Notes"].ToString()
+                                            </p>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

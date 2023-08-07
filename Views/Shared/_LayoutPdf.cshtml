@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Pricings</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/assets/img/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/dataTables.bootstrap4.min.css">
+
+    @RenderSection("Scripts", required: false)
+    <!-- jQuery -->
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/jquery-ui.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/popper.min.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/bootstrap.min.js"></script>
+
+    <!-- Slimscroll JS -->
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/jquery.slimscroll.min.js"></script>
+
+    <!-- Datatable JS -->
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Chart JS -->
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/morris.js"></script>
+
+    <script type="text/javascript" language="javascript" src="~/Content/assets/plugins/raphael/raphael.min.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/chart.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/linebar.min.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/piechart.js"></script>
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/apex.min.js"></script>
+
+    <!-- theme JS -->
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/theme-settings.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" language="javascript" src="~/Content/assets/js/app.js"></script>
+    <script>
+
+    </script>
+    <link href="~/Content/assets/css/pdfstyles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+</head>
+<style>
+    page[size="A4"][layout="portrait"] {
+        width: 29.7cm;
+        height: 21cm;
+    }
+    page-container {
+        position: relative;
+        min-height: 100vh;
+    }
+
+    content-wrap {
+        padding-bottom: 2.5rem; /* Footer height */
+    }
+
+    .footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 20px;
+        background-color: #ffffff;
+        padding-right: 1.5cm;
+        padding-left: 1.5cm;
+        height: 5rem;
+    }
+</style>
+<page size="A4">
+    <body id="skin-color" class="skin-color inter" style="background-color:#ffffff;">
+        <div>
+
+
+            <!-- Sidebar -->
+            <!-- /Sidebar -->
+
+            <div class="" style="padding-top: 30px;">
+                @RenderBody()
+
+            </div>
+            <footer class="footer">
+                <div class="row col-md-12">
+                    <p class="col-md-12" style="color: black; font-weight: bold; font-family: 'Baskerville Old Face'; font-size: 14px; height: 10px;">
+                            Contact:
+                        </p>
+                    <div style="float:left;width:100%;">
+                        <div style="float:left;width:33%;">
+                            <p class="col-md-3" style="color: black; font-family: 'Baskerville Old Face'; font-size: 12px; height: 10px;">
+                                Hans & Willem de Heer
+                            </p>
+                        </div>
+                        <div style="float:left;width:33%;">
+                            <p class="col-md-3" style="color: black; font-family: 'Baskerville Old Face'; font-size: 12px; height: 10px;">
+                                +256 702 244 244 or +256 707 009 166
+                            </p>
+                        </div>
+                        <div style="float:left;width:33%;">
+                            <p class="col-md-3" style="color: black; font-family: 'Baskerville Old Face'; font-size: 12px; height: 10px;">
+                                Brokerage@jdhcoffeeconsulting.com
+                            </p>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div>
+
+            </footer>
+
+        </div>
+
+    </body>
+</page>
+
+</html>
