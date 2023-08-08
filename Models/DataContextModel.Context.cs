@@ -29,9 +29,11 @@ namespace CoffeePricingMgt.Models
     
         public virtual DbSet<tblCategory> tblCategories { get; set; }
         public virtual DbSet<tblProduct> tblProducts { get; set; }
-        public virtual DbSet<tblProductPricing> tblProductPricings { get; set; }
         public virtual DbSet<tblShippingPeriod> tblShippingPeriods { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblProductPricing> tblProductPricings { get; set; }
+        public virtual DbSet<tblCrop> tblCrops { get; set; }
+        public virtual DbSet<tblTerm> tblTerms { get; set; }
     
         public virtual ObjectResult<pFOBOfferList_Result> pFOBOfferList()
         {

@@ -84,11 +84,10 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="@Url.Action("Index", "Home")" class="logo">
-                    <!-- mini logo for sidebar mini 50x50 pixels -->
-                    @*<span class="logo-mini"><b>A</b>LT</span>*@
-                    <!-- logo for regular state and mobile devices -->
-                    @*<img src="~/Images/STS1.png" style=" height: 60px; width: 90px;" />*@
-
+                     @*mini logo for sidebar mini 50x50 pixels 
+                    <span class="logo-mini"><b>A</b>LT</span>
+                     logo for regular state and mobile devices*@ 
+                    <img src="~/Images/JdhCoffeeConsulting.png" style=" height: 60px; width: 90px; float: left" />
                 </a>
             </div>
             <!-- /Logo -->
@@ -138,26 +137,38 @@
                         <li class="submenu">
                             <a href="#"><i class="fa fa-circle-thin"></i> <span> Origins Management</span> <span class="menu-arrow"></span></a>
                             <ul class="sub-menus">
-                                <li><a id="aLink" href="@Url.Action("Index", "tblCategories")" class="active"><i class="fa fa-list"></i> All Origins</a></li>
+                                <li><a id="aLink" href="@Url.Action("Index", "tblCategories")"><i class="fa fa-list"></i> All Origins</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
                             <a href="#"><i class="fa fa-product-hunt"></i> <span> Grades Management</span> <span class="menu-arrow"></span></a>
                             <ul class="sub-menus">
-                                <li><a id="aLink" href="@Url.Action("Index", "Products")" class="active"><i class="fa fa-list"></i> All Grades</a></li>
+                                <li><a id="aLink" href="@Url.Action("Index", "Products")"><i class="fa fa-list"></i> All Grades</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
-                            <a href="#"><i class="fa fa-ship"></i> <span> Shipping Period Management</span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="fa fa-ship"></i> <span> Shipping Periods</span> <span class="menu-arrow"></span></a>
                             <ul class="sub-menus">
-                                <li><a id="aLink" href="@Url.Action("Index", "ShippingPeriods")" class="active"><i class="fa fa-list"></i> All Shipping Periods</a></li>
+                                <li><a id="aLink" href="@Url.Action("Index", "ShippingPeriods")"><i class="fa fa-ship"></i> All Shipping Periods</a></li>
                             </ul>
                         </li>
 
                         <li class="submenu">
                             <a href="#"><i class="fa fa-money"></i> <span> Pricing Management</span> <span class="menu-arrow"></span></a>
                             <ul class="sub-menus">
-                                <li><a id="aLink" href="@Url.Action("Index", "ProductPricings")" class="active"><i class="fa fa-list"></i> All Pricings</a></li>
+                                <li><a id="aLink" href="@Url.Action("Index", "ProductPricings")"><i class="fa fa-money"></i> All Pricings</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-terminal"></i> <span>Terms Management</span> <span class="menu-arrow"></span></a>
+                            <ul class="sub-menus">
+                                <li><a id="aLink" href="@Url.Action("Index", "Terms")"><i class="fa fa-terminal"></i> All Terms</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-crop"></i> <span>Crops Management</span> <span class="menu-arrow"></span></a>
+                            <ul class="sub-menus">
+                                <li><a id="aLink" href="@Url.Action("Index", "Crop")" ><i class="fa fa-crop"></i> All Crops</a></li>
                             </ul>
                         </li>
                         @if (rolename == "Admin")

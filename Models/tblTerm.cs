@@ -12,22 +12,20 @@ namespace CoffeePricingMgt.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblProduct
+    public partial class tblTerm
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblProduct()
+        public tblTerm()
         {
             this.tblProductPricings = new HashSet<tblProductPricing>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public int CategoryID { get; set; }
-        public System.Guid UserID { get; set; }
+        public Nullable<System.Guid> UserID { get; set; }
     
-        public virtual tblCategory tblCategory { get; set; }
-        public virtual tblUser tblUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProductPricing> tblProductPricings { get; set; }
+        public virtual tblUser tblUser { get; set; }
     }
 }

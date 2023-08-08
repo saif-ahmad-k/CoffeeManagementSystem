@@ -19,15 +19,19 @@ namespace CoffeePricingMgt.Models
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime PricingDate { get; set; }
         public string Price { get; set; }
-        public string Notes { get; set; }
+        public Nullable<int> TermID { get; set; }
         public int ProductID { get; set; }
         public System.Guid UserID { get; set; }
         public Nullable<int> ShippingPeriodID { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public int Bags { get; set; }
+        public Nullable<int> CropID { get; set; }
         [NotMapped]
-        public int? CategoryID { get; set; }
+        public int CategoryID { get; set; }
         public virtual tblProduct tblProduct { get; set; }
         public virtual tblShippingPeriod tblShippingPeriod { get; set; }
         public virtual tblUser tblUser { get; set; }
+        public virtual tblCrop tblCrop { get; set; }
+        public virtual tblTerm tblTerm { get; set; }
     }
 }

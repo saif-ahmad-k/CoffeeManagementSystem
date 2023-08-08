@@ -22,115 +22,112 @@
 </head>
 @using (Html.BeginForm())
 {
-    <form class="form-horizontal">
-        <div class="content container-fluid" style="padding-top:15px">
-            <div class="row col-md-12">
-                <div class="col-md-11"><h4>@ViewBag.Title</h4></div>
-                <div class="col-md-1 pull-right">
-                    <a type="button" href="@Url.Action("Create", "ProductPricings")" class="btn btn-primary">Add New</a>
-                    <a type="button" href="@Url.Action("DeleteAll", "ProductPricings")" class="btn btn-danger">Delete All</a>
-                </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h4>@ViewBag.Title</h4>
             </div>
-            <div class="row col-md-12">
-                <div class="form-group col-md-3">
-                    @Html.Label("Select Grade", htmlAttributes: new { @class = "control-label" })
-                    <div class="">
-                        @Html.DropDownList("ProductID", null, htmlAttributes: new { @class = "form-control" })
-                    </div>
-                </div>
-                @*<div class="form-group col-md-3">
-                    @Html.Label("From Date", htmlAttributes: new { @class = "control-label" })
-                    <div class="">
-                        @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control date-picker", @type = "date", autocomplete = "off" } })
-                    </div>
-                </div>
-                <div class="form-group col-md-3">
-                    @Html.Label("To Date", htmlAttributes: new { @class = "control-label" })
-                    <div class="">
-                        @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control date-picker", @type = "date", autocomplete = "off" } })
-                    </div>
-                </div>*@
-                <div class="col-md-3" style="padding-top:33px">
-                    <input type="submit" value="Search" class="btn btn-success" />
-                </div>
-                <div class="col-md-4"></div>
-                <div class="col-md-1 pull-right" style="padding-top:33px">
-                    @*new { @FromDate = Model.SearchDTO.FromDate, @ToDate = Model.SearchDTO.ToDate, @SerialNumber = Model.SearchDTO.SerialNumber, @DoctorId = Model.SearchDTO.DoctorId, @PatientId = Model.SearchDTO.PatientId },*@
-                    @*@Html.ActionLink("RecordReport", "RecordReport", new { @ProductId = Model.ProductID, @class = "btn btn-primary" }, new { target = "_blank" })*@
-                    @*<a href="/ProductPricings/RecordReport" class="btn btn-danger" target="_blank">PDF print</a>*@
-                    <a href="/ProductPricings/ReportView" class="btn btn-outline-danger" target="_blank">PDF print</a>
-
-                </div>
+            <div class="col-md-4 text-right">
+                <a href="@Url.Action("Create", "ProductPricings")" class="btn btn-primary">Add New</a>
+                <a href="@Url.Action("DeleteAll", "ProductPricings")" class="btn btn-danger ml-2">Delete All</a>
             </div>
         </div>
-    </form>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card mb-0 ml-2 mr-2">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="example" class="table table-stripped mb-0 datatables">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayName("Origin")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Grade")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Shipping Period")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Price")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Terms")
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.ProductPricingList)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.tblProduct.tblCategory.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.tblProduct.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.tblShippingPeriod.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Price)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Notes)
-                                        </td>
-                                        <td>
-                                            @*@if (rolename == "Admin")
-            {*@
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        <div class="row mt-4 align-items-center">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.Label("Select Grade", htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("ProductID", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <input type="submit" value="Search" class="btn btn-success btn-block" />
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="/ProductPricings/ReportView" class="btn btn-outline-danger" target="_blank">PDF print</a>
+            </div>
+        </div>
 
-                                        </td>
+
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-0 ml-2 mr-2">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-stripped mb-0 datatables">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Origin")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Grade")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Bags")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Shipping Period")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Price")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Crops")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Terms")
+                                        </th>
+                                        <th></th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ProductPricingList)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tblProduct.tblCategory.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tblProduct.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Bags)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tblShippingPeriod.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Price)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tblCrop.CropName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tblTerm.Name)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
-        //$('#example').DataTable({
-        //    dom: 'Bfrtip',
-        //    buttons: [
-        //         'pdf'
-        //    ]
-        //});
+                //$('#example').DataTable({
+                //    dom: 'Bfrtip',
+                //    buttons: [
+                //         'pdf'
+                //    ]
+                //});
     </script>
 }

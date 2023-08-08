@@ -169,6 +169,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\ProductPricingsController.cs" />
+    <Compile Include="Controllers\CropController.cs" />
+    <Compile Include="Controllers\TermsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Controllers\ShippingPeriodsController.cs" />
@@ -209,6 +211,9 @@
     <Compile Include="Models\tblCategory.cs">
       <DependentUpon>DataContextModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblCrop.cs">
+      <DependentUpon>DataContextModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblProduct.cs">
       <DependentUpon>DataContextModel.tt</DependentUpon>
     </Compile>
@@ -216,6 +221,9 @@
       <DependentUpon>DataContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblShippingPeriod.cs">
+      <DependentUpon>DataContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblTerm.cs">
       <DependentUpon>DataContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblUser.cs">
@@ -634,6 +642,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\JdhCoffeeConsulting.png" />
     <Content Include="Models\DataContextModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DataContextModel.Context.cs</LastGenOutput>
@@ -793,6 +802,16 @@
     <Content Include="Views\Prices\ReportView.cshtml" />
     <Content Include="Views\Shared\_ReportView.cshtml" />
     <Content Include="Views\Shared\_LayoutPdf.cshtml" />
+    <Content Include="Views\Terms\Create.cshtml" />
+    <Content Include="Views\Terms\Delete.cshtml" />
+    <Content Include="Views\Terms\Details.cshtml" />
+    <Content Include="Views\Terms\Edit.cshtml" />
+    <Content Include="Views\Terms\Index.cshtml" />
+    <Content Include="Views\Crop\Create.cshtml" />
+    <Content Include="Views\Crop\Delete.cshtml" />
+    <Content Include="Views\Crop\Details.cshtml" />
+    <Content Include="Views\Crop\Edit.cshtml" />
+    <Content Include="Views\Crop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

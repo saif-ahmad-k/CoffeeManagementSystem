@@ -36,17 +36,37 @@
             </div>
         </div>*@
                             <div class="form-group">
+                                @Html.Label("Select Crop", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-12 mb-3">
+                                    @Html.DropDownList("CropID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 @Html.Label("Price", htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-12 mb-3">
                                     @Html.EditorFor(p => p.Price, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                                 </div>
                             </div>
+                            @*<div class="form-group">
+            @Html.Label("Select Term", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12 mb-3">
+                @Html.DropDownList("Notes", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>*@
                             <div class="form-group">
                                 @Html.Label("Select Term", htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-12 mb-3">
-                                    @Html.DropDownList("Notes", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("TermID", null, htmlAttributes: new { @class = "form-control" })
                                 </div>
                             </div>
+                            <div class="form-group">
+                                @Html.LabelFor(p => p.Bags, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(p => p.Bags, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(p => p.Bags, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 @Html.Label("Select Shipping Period", htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-12 mb-3">

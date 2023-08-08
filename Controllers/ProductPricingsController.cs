@@ -28,70 +28,105 @@ using Rotativa.Options;
 namespace CoffeePricingMgt.Controllers
 {
     [SessionTimeout]
-    public class ProductPricingsController : Controller
-    {
-        private DataContext db = new DataContext();
-
-        // GET: ProductPricings
-        public async Task<ActionResult> Index()
+    
+        public class ProductPricingsController : Controller
         {
-            var vm = new ProductPricingForListVM();
-            List<SelectListItem> lesse = new List<SelectListItem>() {
+            private DataContext db = new DataContext();
+
+            // GET: ProductPricings
+            public async Task<ActionResult> Index()
+            {
+                var vm = new ProductPricingForListVM();
+                List<SelectListItem> lesse = new List<SelectListItem>() {
     new SelectListItem {
         Text = "-", Value = "0"
     }
 };
-            var lesseList = db.tblProducts.ToList();
-            foreach (var it in lesseList)
-            {
-                var newitem = new SelectListItem
+                var lesseList = db.tblProducts.ToList();
+                foreach (var it in lesseList)
                 {
-                    Text = it.Name,
-                    Value = it.ID.ToString()
-                };
-                lesse.Add(newitem);
-            }
+                    var newitem = new SelectListItem
+                    {
+                        Text = it.Name,
+                        Value = it.ID.ToString()
+                    };
+                    lesse.Add(newitem);
+                }
 
-            ViewBag.ProductID = lesse;
-
-            vm.ProductPricingList = await db.tblProductPricings.Where(p=>p.IsActive==true).Include(t => t.tblProduct).OrderByDescending(p => p.PricingDate).ToListAsync();
-            return View(vm);
-        }
-        [HttpPost]
-        public async Task<ActionResult> Index(ProductPricingForListVM vm)
-        {
-            var result = await db.tblProductPricings.Where(p => p.IsActive == true).Include(t => t.tblProduct).ToListAsync();
-            if(vm.ProductID != null && vm.ProductID != 0)
-            {
-                result = result.Where(p => p.ProductID == vm.ProductID).OrderByDescending(p => p.PricingDate).ToList();
-            }
-            if (vm.FromDate != null && vm.ToDate != null)
-            {
-                result = result.Where(p => p.PricingDate >= vm.FromDate && p.PricingDate <= vm.ToDate).OrderByDescending(p => p.PricingDate).ToList();
-            }
-            vm.ProductPricingList = result;
-            List<SelectListItem> lesse = new List<SelectListItem>() {
+                ViewBag.ProductID = lesse;
+                List<SelectListItem> lesse2 = new List<SelectListItem>() {
     new SelectListItem {
         Text = "-", Value = "0"
     }
 };
-            var lesseList = db.tblProducts.ToList();
-            foreach (var it in lesseList)
-            {
-                var newitem = new SelectListItem
+                ViewBag.TermID = lesse2;
+                var lesseList2 = db.tblTerms.ToList();
+                foreach (var it in lesseList2)
                 {
-                    Text = it.Name,
-                    Value = it.ID.ToString()
-                };
-                lesse.Add(newitem);
+                    var newitem = new SelectListItem
+                    {
+                        Text = it.Name,
+                        Value = it.ID.ToString()
+                    };
+                    lesse2.Add(newitem);
+                }
+
+                ViewBag.TermID = lesse2;
+                vm.ProductPricingList = await db.tblProductPricings.Where(p => p.IsActive == true).Include(t => t.tblProduct).OrderByDescending(p => p.PricingDate).ToListAsync();
+                return View(vm);
+            }
+            [HttpPost]
+            public async Task<ActionResult> Index(ProductPricingForListVM vm)
+            {
+                var result = await db.tblProductPricings.Where(p => p.IsActive == true).Include(t => t.tblProduct).ToListAsync();
+                if (vm.ProductID != null && vm.ProductID != 0)
+                {
+                    result = result.Where(p => p.ProductID == vm.ProductID).OrderByDescending(p => p.PricingDate).ToList();
+                }
+                if (vm.FromDate != null && vm.ToDate != null)
+                {
+                    result = result.Where(p => p.PricingDate >= vm.FromDate && p.PricingDate <= vm.ToDate).OrderByDescending(p => p.PricingDate).ToList();
+                }
+                vm.ProductPricingList = result;
+                List<SelectListItem> lesse = new List<SelectListItem>() {
+    new SelectListItem {
+        Text = "-", Value = "0"
+    }
+};
+                var lesseList = db.tblProducts.ToList();
+                foreach (var it in lesseList)
+                {
+                    var newitem = new SelectListItem
+                    {
+                        Text = it.Name,
+                        Value = it.ID.ToString()
+                    };
+                    lesse.Add(newitem);
+                }
+                List<SelectListItem> lesse2 = new List<SelectListItem>() {
+    new SelectListItem {
+        Text = "-", Value = "0"
+    }
+};
+                ViewBag.TermID = lesse2;
+                var lesseList2 = db.tblTerms.ToList();
+                foreach (var it in lesseList2)
+                {
+                    var newitem = new SelectListItem
+                    {
+                        Text = it.Name,
+                        Value = it.ID.ToString()
+                    };
+                    lesse2.Add(newitem);
+                }
+
+                ViewBag.TermID = lesse2;
+                return View(vm);
             }
 
-            ViewBag.ProductID = lesse;
-            return View(vm);
-        }
 
-        // GET: ProductPricings/Details/5
-        public async Task<ActionResult> Details(int? id)
+            // GET: ProductPricings/Details/5
+            public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -128,16 +163,18 @@ namespace CoffeePricingMgt.Controllers
             }
             ViewBag.ShippingPeriodID = ShippingPeriodItem;
 
-            List<SelectListItem> TermItem = new List<SelectListItem>() {
-    new SelectListItem {
-        Text = "-", Value = ""
-                        },new SelectListItem {
-        Text = "FOT", Value = "FOT"
-                        },new SelectListItem {
-        Text = "FOB", Value = "FOB"
-                        }
-                            };
-            ViewBag.Notes = TermItem;
+            ViewBag.TermID = new SelectList(db.tblTerms, "ID", "Name");
+            ViewBag.CropID = new SelectList(db.tblCrops, "ID", "CropName");
+            //        List<SelectListItem> TermItem = new List<SelectListItem>() {
+            //new SelectListItem {
+            //    Text = "-", Value = ""
+            //                    },new SelectListItem {
+            //    Text = "FOT", Value = "FOT"
+            //                    },new SelectListItem {
+            //    Text = "FOB", Value = "FOB"
+            //                    }
+            //                        };
+            //ViewBag.Notes = TermItem;
             return View();
         }
 
@@ -146,7 +183,7 @@ namespace CoffeePricingMgt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,CreatedDate,PricingDate,Price,Notes,ProductID,ShippingPeriodID,CategoryID")] tblProductPricing tblProductPricing)
+        public async Task<ActionResult> Create([Bind(Include = "ID,CreatedDate,PricingDate,CropID,Price,TermID,ProductID,ShippingPeriodID,CategoryID,Bags")] tblProductPricing tblProductPricing)
         {
             if (ModelState.IsValid)
             {
@@ -154,6 +191,9 @@ namespace CoffeePricingMgt.Controllers
                 tblProductPricing.PricingDate = DateTime.Now;
                 tblProductPricing.UserID = new Guid(Session["UserId"].ToString());
                 tblProductPricing.IsActive = true;
+
+                //int bags = Convert.ToInt32(Request.Form["Bags"]);
+                //tblProductPricing.Bags = bags;
                 //tblProductPricing.CategoryID = tblProductPricing.tblProduct.CategoryID;
                 db.tblProductPricings.Add(tblProductPricing);
                 await db.SaveChangesAsync();
@@ -161,6 +201,8 @@ namespace CoffeePricingMgt.Controllers
             }
             ViewBag.CategoryID = new SelectList(db.tblCategories, "ID", "Name", tblProductPricing.CategoryID);
             ViewBag.ProductID = new SelectList(db.tblProducts, "ID", "Name", tblProductPricing.ProductID);
+            ViewBag.TermID = new SelectList(db.tblTerms, "ID", "Name", tblProductPricing.TermID);
+            ViewBag.CropID = new SelectList(db.tblCrops, "ID", "CropName", tblProductPricing.CropID);
             return View(tblProductPricing);
         }
 
@@ -196,17 +238,18 @@ namespace CoffeePricingMgt.Controllers
                 ShippingPeriodItem.Add(newitem);
             }
             ViewBag.ShippingPeriodID = new SelectList(ShippingPeriodItem, "Value", "Text", tblProductPricing.ShippingPeriodID);
-
-            List<SelectListItem> TermItem = new List<SelectListItem>() {
-    new SelectListItem {
-        Text = "-", Value = ""
-                        },new SelectListItem {
-        Text = "FOT", Value = "FOT"
-                        },new SelectListItem {
-        Text = "FOB", Value = "FOB"
-                        }
-                            };
-            ViewBag.Notes = new SelectList(TermItem, "Value", "Text", tblProductPricing.Notes);
+            ViewBag.TermID = new SelectList(db.tblTerms, "ID", "Name", tblProductPricing.TermID);
+            ViewBag.CropID = new SelectList(db.tblCrops, "ID", "CropName", tblProductPricing.CropID);
+            //        List<SelectListItem> TermItem = new List<SelectListItem>() {
+            //new SelectListItem {
+            //    Text = "-", Value = ""
+            //                    },new SelectListItem {
+            //    Text = "FOT", Value = "FOT"
+            //                    },new SelectListItem {
+            //    Text = "FOB", Value = "FOB"
+            //                    }
+            //                        };
+            //ViewBag.Notes = new SelectList(TermItem, "Value", "Text", tblProductPricing.Notes);
             return View(tblProductPricing);
         }
 
@@ -215,7 +258,7 @@ namespace CoffeePricingMgt.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,CreatedDate,PricingDate,Price,Notes,ProductID,ShippingPeriodID,CategoryID")] tblProductPricing tblProductPricing)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,CreatedDate,PricingDate,CropID,Price,Notes,ProductID,ShippingPeriodID,CategoryID,Bags")] tblProductPricing tblProductPricing)
         {
             if (ModelState.IsValid)
             {
@@ -228,6 +271,8 @@ namespace CoffeePricingMgt.Controllers
             }
             ViewBag.CategoryID = new SelectList(db.tblCategories, "ID", "Name", tblProductPricing.CategoryID);
             ViewBag.ProductID = new SelectList(db.tblProducts, "ID", "Name", tblProductPricing.ProductID);
+            ViewBag.TermID = new SelectList(db.tblTerms, "ID", "Name", tblProductPricing.TermID);
+            ViewBag.CropID = new SelectList(db.tblCrops, "ID", "CropName", tblProductPricing.CropID);
             return View(tblProductPricing);
         }
 
