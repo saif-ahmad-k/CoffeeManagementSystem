@@ -26,8 +26,8 @@ namespace CoffeePricingMgt.Models
         public System.Guid UserID { get; set; }
     
         public virtual tblCategory tblCategory { get; set; }
-        public virtual tblUser tblUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProductPricing> tblProductPricings { get; set; }
+        public virtual tblUser tblUser { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using CoffeePricingMgt.Models;
 
 namespace CoffeePricingMgt.Controllers
 {
@@ -52,25 +53,6 @@ namespace CoffeePricingMgt.Controllers
                             }
                             
                         }
-                        //else if (command == "Clockout")
-                        //{
-                        //    Session["UserId"] = User.Id.ToString();
-                        //    if (User.Role != "Admin")
-                        //    {
-                        //        var todayaDate = DateTime.Now.Date;
-                        //        Attendance attendance = db.Attendances.Where(p => p.UserId == User.Id && p.AttendanceDate == todayaDate && p.CheckOut == null).FirstOrDefault();
-                        //        if (attendance != null)
-                        //        {
-                        //            attendance.CheckOut = DateTime.Now.TimeOfDay;
-                        //            attendance.CreatedDate = DateTime.Now;
-                        //            //db.Attendances.Add(attendance);
-                        //            db.Entry(attendance).State = EntityState.Modified;
-                        //            db.SaveChangesAsync();
-                        //        }
-                        //        Session["Role"] = "Normal";
-                        //        return RedirectToAction("Index", "Attendances");
-                        //    }
-                        //}
                     }
                     else
                     {
@@ -150,57 +132,35 @@ namespace CoffeePricingMgt.Controllers
             }
         }
 
-        //public ActionResult ResetPassword(string id)
-        //{
-        //    var origId = HelperClass.Decrypt(id);
-        //    var User = db.tblUsers.Find(new Guid(origId));
-        //    if (User != null)
-        //    {
-        //        //UserVM uservm = new UserVM();
-        //        //uservm.Email = User.Email;
-        //        //uservm.OldPassword = User.Password;
-        //        //return View(uservm);
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
+        public ActionResult RequestCredentials()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SendCredentialsRequest(tblRequestCredential model)
+        {
+            // Send an email to the specified address with the provided details
+            var body = $"Name: {model.Name}<br/>Company: {model.Company}<br/>Email: {model.Email}";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress("willem@sacofgroup.com")); // Change to the correct email address
+            message.From = new MailAddress("willem@sacofgroup.com"); // Change to the correct from address
+            message.Subject = "Login Credentials Request";
+            message.Body = body;
+            message.IsBodyHtml = true;
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult ResetPassword(UserVM model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            var User = db.tblUsers.Where(u => u.Email == model.Email).FirstOrDefault();
-        //            if (User != null)
-        //            {
-        //                User.Password = HelperClass.Encrypt(model.ConfirmPassword);
-        //                db.Entry(User).State = EntityState.Modified;
-        //                db.SaveChangesAsync();
-        //                return RedirectToAction("Login");
-        //            }
-        //            else
-        //            {
-        //                TempData["Message"] = "Error!";
-        //            }
+            using (var smtp = new SmtpClient("mail.sacofgroup.com"))
+            {
+                smtp.EnableSsl = true;
+                //smtp.UseDefaultCredentials = false;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Port = 587;// 465;
+                smtp.Credentials = new NetworkCredential("willem@sacofgroup.com", "ceqbo7-jitgaq-goRdik"); // Replace with your Gmail credentials   
+                smtp.Send(message);
+            }
 
-        //            return View(model);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw ex;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        TempData["Message"] = "Error! Password Not match";
-        //        return View(model);
-        //    }
+            TempData["Message"] = "Credentials request sent successfully.";
+            return RedirectToAction("Login");
+        }
 
-        //}
     }
 }

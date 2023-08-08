@@ -28,10 +28,10 @@ namespace CoffeePricingMgt.Models
         public Nullable<int> CropID { get; set; }
         [NotMapped]
         public int CategoryID { get; set; }
+        public virtual tblCrop tblCrop { get; set; }
         public virtual tblProduct tblProduct { get; set; }
         public virtual tblShippingPeriod tblShippingPeriod { get; set; }
         public virtual tblUser tblUser { get; set; }
-        public virtual tblCrop tblCrop { get; set; }
         public virtual tblTerm tblTerm { get; set; }
     }
 }

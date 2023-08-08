@@ -220,6 +220,9 @@
     <Compile Include="Models\tblProductPricing.cs">
       <DependentUpon>DataContextModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblRequestCredential.cs">
+      <DependentUpon>DataContextModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblShippingPeriod.cs">
       <DependentUpon>DataContextModel.tt</DependentUpon>
     </Compile>
@@ -812,6 +815,7 @@
     <Content Include="Views\Crop\Details.cshtml" />
     <Content Include="Views\Crop\Edit.cshtml" />
     <Content Include="Views\Crop\Index.cshtml" />
+    <Content Include="Views\Auth\RequestCredentials.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

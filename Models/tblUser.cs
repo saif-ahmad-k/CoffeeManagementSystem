@@ -18,10 +18,10 @@ namespace CoffeePricingMgt.Models
         public tblUser()
         {
             this.tblCategories = new HashSet<tblCategory>();
-            this.tblProducts = new HashSet<tblProduct>();
-            this.tblShippingPeriods = new HashSet<tblShippingPeriod>();
-            this.tblProductPricings = new HashSet<tblProductPricing>();
             this.tblCrops = new HashSet<tblCrop>();
+            this.tblProducts = new HashSet<tblProduct>();
+            this.tblProductPricings = new HashSet<tblProductPricing>();
+            this.tblShippingPeriods = new HashSet<tblShippingPeriod>();
             this.tblTerms = new HashSet<tblTerm>();
         }
     
@@ -36,13 +36,13 @@ namespace CoffeePricingMgt.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCategory> tblCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProduct> tblProducts { get; set; }
+        public virtual ICollection<tblCrop> tblCrops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblShippingPeriod> tblShippingPeriods { get; set; }
+        public virtual ICollection<tblProduct> tblProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProductPricing> tblProductPricings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCrop> tblCrops { get; set; }
+        public virtual ICollection<tblShippingPeriod> tblShippingPeriods { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTerm> tblTerms { get; set; }
     }
