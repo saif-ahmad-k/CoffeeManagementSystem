@@ -87,10 +87,11 @@
                             {
                                 var cat = roww["Name1"].ToString();
                                 var prod = roww["Name"].ToString();
+
                                 if (!catsList.Contains(cat))
                                 {
                                     catsList.Add(cat);
-                                    <tr>
+                                    <tr class="origin-row">
                                         <td>
                                             <p class="catheadings">
                                                 @cat
@@ -126,7 +127,6 @@
                                             </td>
                                         </tr>
                                     }
-
                                 }
                                 else if (!prodsList.Contains(prod))
                                 {
@@ -154,6 +154,7 @@
                                     </tr>
                                 }
                             }
+
                         </tbody>
 
                     </table>
@@ -212,24 +213,4 @@
 
 
 
-</script>
-<script>
-    //$("#btnSubmit").click(function () {
-    //    $("input[name='ExportData']").val($("#PrintPDF").html());
-    //});
-     @*$.ajax({
-            url: "@Url.Action("ReportViewPartial", "ProductPricings")",
-            type: "Get",
-            //contentType: "application/json",
-            //dataType: "json",
-            //data: JSON.stringify(data),
-            success: function (results) {
-                //alert(url);
-                alert("Success");
-            },
-
-            error: function (e) {
-                alert("Fail");
-            }
-        });*@
 </script>

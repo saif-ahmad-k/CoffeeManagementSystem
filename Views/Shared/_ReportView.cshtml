@@ -8,20 +8,10 @@
 }
 
 <style>
-    /*table {
-        border-top: 0 !important;
-        max-width: 2480px;
-        max-width: 2480px;
-        width: 100%;
+    .origin-row {
+        background-color: #f1f1f1; /* Choose a color for the origin row background */
+        padding: 20px 0; /* Adjust padding for better spacing */
     }
-
-        #table th, table td {*/
-    /*border-top: 1 !important;*/
-    /*width: auto;
-            overflow: hidden;
-            border-color:black;
-            border-block-color:black;
-        }*/
 </style>
 <div class="row html-content content-template">
     <div class="col-sm-12">
@@ -38,7 +28,7 @@
                 <div class="">
                     <table class="tablepdf">
                         <thead>
-                            <tr>
+                            <tr class="origin-row">
                                 <th>
                                 </th>
                                 <th>
@@ -82,7 +72,7 @@
                                 if (!catsList.Contains(cat))
                                 {
                                     catsList.Add(cat);
-                                    <tr>
+                                    <tr class="origin-row">
                                         <td>
                                             <p class="catheadings">
                                                 @cat
@@ -113,7 +103,7 @@
                                             </td>
                                             <td>
                                                 <p class="normaltext">
-                                                    @roww["Notes"].ToString()
+                                                    @roww["TermName"].ToString()
                                                 </p>
                                             </td>
                                         </tr>
@@ -140,7 +130,7 @@
                                         </td>
                                         <td>
                                             <p class="normaltext">
-                                                @roww["Notes"].ToString()
+                                                @roww["TermName"].ToString()
                                             </p>
                                         </td>
                                     </tr>

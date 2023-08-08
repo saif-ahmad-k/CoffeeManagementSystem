@@ -33,100 +33,116 @@ namespace CoffeePricingMgt.Controllers
         {
             private DataContext db = new DataContext();
 
-            // GET: ProductPricings
-            public async Task<ActionResult> Index()
+        // GET: ProductPricings
+        public async Task<ActionResult> Index()
+        {
+            var vm = new ProductPricingForListVM();
+
+            var productItems = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "-", Value = "0" }
+    };
+
+            var productList = await db.tblProducts.ToListAsync();
+            foreach (var product in productList)
             {
-                var vm = new ProductPricingForListVM();
-                List<SelectListItem> lesse = new List<SelectListItem>() {
-    new SelectListItem {
-        Text = "-", Value = "0"
-    }
-};
-                var lesseList = db.tblProducts.ToList();
-                foreach (var it in lesseList)
+                var newitem = new SelectListItem
                 {
-                    var newitem = new SelectListItem
-                    {
-                        Text = it.Name,
-                        Value = it.ID.ToString()
-                    };
-                    lesse.Add(newitem);
-                }
-
-                ViewBag.ProductID = lesse;
-                List<SelectListItem> lesse2 = new List<SelectListItem>() {
-    new SelectListItem {
-        Text = "-", Value = "0"
-    }
-};
-                ViewBag.TermID = lesse2;
-                var lesseList2 = db.tblTerms.ToList();
-                foreach (var it in lesseList2)
-                {
-                    var newitem = new SelectListItem
-                    {
-                        Text = it.Name,
-                        Value = it.ID.ToString()
-                    };
-                    lesse2.Add(newitem);
-                }
-
-                ViewBag.TermID = lesse2;
-                vm.ProductPricingList = await db.tblProductPricings.Where(p => p.IsActive == true).Include(t => t.tblProduct).OrderByDescending(p => p.PricingDate).ToListAsync();
-                return View(vm);
-            }
-            [HttpPost]
-            public async Task<ActionResult> Index(ProductPricingForListVM vm)
-            {
-                var result = await db.tblProductPricings.Where(p => p.IsActive == true).Include(t => t.tblProduct).ToListAsync();
-                if (vm.ProductID != null && vm.ProductID != 0)
-                {
-                    result = result.Where(p => p.ProductID == vm.ProductID).OrderByDescending(p => p.PricingDate).ToList();
-                }
-                if (vm.FromDate != null && vm.ToDate != null)
-                {
-                    result = result.Where(p => p.PricingDate >= vm.FromDate && p.PricingDate <= vm.ToDate).OrderByDescending(p => p.PricingDate).ToList();
-                }
-                vm.ProductPricingList = result;
-                List<SelectListItem> lesse = new List<SelectListItem>() {
-    new SelectListItem {
-        Text = "-", Value = "0"
-    }
-};
-                var lesseList = db.tblProducts.ToList();
-                foreach (var it in lesseList)
-                {
-                    var newitem = new SelectListItem
-                    {
-                        Text = it.Name,
-                        Value = it.ID.ToString()
-                    };
-                    lesse.Add(newitem);
-                }
-                List<SelectListItem> lesse2 = new List<SelectListItem>() {
-    new SelectListItem {
-        Text = "-", Value = "0"
-    }
-};
-                ViewBag.TermID = lesse2;
-                var lesseList2 = db.tblTerms.ToList();
-                foreach (var it in lesseList2)
-                {
-                    var newitem = new SelectListItem
-                    {
-                        Text = it.Name,
-                        Value = it.ID.ToString()
-                    };
-                    lesse2.Add(newitem);
-                }
-
-                ViewBag.TermID = lesse2;
-                return View(vm);
+                    Text = product.Name,
+                    Value = product.ID.ToString()
+                };
+                productItems.Add(newitem);
             }
 
+            ViewBag.ProductID = productItems;
 
-            // GET: ProductPricings/Details/5
-            public async Task<ActionResult> Details(int? id)
+            var termItems = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "-", Value = "0" }
+    };
+
+            var termList = await db.tblTerms.ToListAsync();
+            foreach (var term in termList)
+            {
+                var newitem = new SelectListItem
+                {
+                    Text = term.Name,
+                    Value = term.ID.ToString()
+                };
+                termItems.Add(newitem);
+            }
+
+            ViewBag.TermID = termItems;
+
+            vm.ProductPricingList = await db.tblProductPricings
+                .Where(p => p.IsActive == true)
+                .Include(t => t.tblProduct)
+                .OrderByDescending(p => p.PricingDate)
+                .ToListAsync();
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Index(ProductPricingForListVM vm)
+        {
+            var result = await db.tblProductPricings.Where(p => p.IsActive == true).Include(t => t.tblProduct).ToListAsync();
+
+            if (vm.ProductID != null && vm.ProductID != 0)
+            {
+                result = result.Where(p => p.ProductID == vm.ProductID).OrderByDescending(p => p.PricingDate).ToList();
+            }
+
+            if (vm.FromDate != null && vm.ToDate != null)
+            {
+                result = result.Where(p => p.PricingDate >= vm.FromDate && p.PricingDate <= vm.ToDate).OrderByDescending(p => p.PricingDate).ToList();
+            }
+
+            vm.ProductPricingList = result;
+
+            var productItems = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "-", Value = "0" }
+    };
+
+            var productList = await db.tblProducts.ToListAsync();
+            foreach (var product in productList)
+            {
+                var newitem = new SelectListItem
+                {
+                    Text = product.Name,
+                    Value = product.ID.ToString()
+                };
+                productItems.Add(newitem);
+            }
+
+            ViewBag.ProductID = productItems;
+
+            var termItems = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "-", Value = "0" }
+    };
+
+            var termList = await db.tblTerms.ToListAsync();
+            foreach (var term in termList)
+            {
+                var newitem = new SelectListItem
+                {
+                    Text = term.Name,
+                    Value = term.ID.ToString()
+                };
+                termItems.Add(newitem);
+            }
+
+            ViewBag.TermID = termItems;
+
+            return View(vm);
+        }
+
+
+
+        // GET: ProductPricings/Details/5
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
