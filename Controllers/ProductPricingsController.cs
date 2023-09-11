@@ -159,10 +159,26 @@ namespace CoffeePricingMgt.Controllers
         // GET: ProductPricings/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.tblCategories.OrderBy(p => p.Sequance), "ID", "Name");
-            ViewBag.ProductID = new SelectList(db.tblProducts, "ID", "Name");
+            //ViewBag.CategoryID = new SelectList(db.tblCategories.OrderBy(p => p.Sequance), "ID", "Name", 0);
+            List<SelectListItem> catItem = new List<SelectListItem>() {
+    new SelectListItem {
+        Text = "-", Value = ""
+                        }
+                            };
+            var catListList = db.tblCategories.OrderBy(p => p.Sequance).ToList();
+            foreach (var it in catListList)
+            {
+                var newitem = new SelectListItem
+                {
+                    Text = it.Name,
+                    Value = it.ID.ToString()
+                };
+                catItem.Add(newitem);
+            }
+            ViewBag.CategoryID = catItem;
+            ViewBag.ProductID = new SelectList(db.tblProducts.Where(p => p.ID == 0), "ID", "Name");
 
-            List<SelectListItem> ShippingPeriodItem = new List<SelectListItem>() {
+            List <SelectListItem> ShippingPeriodItem = new List<SelectListItem>() {
     new SelectListItem {
         Text = "-", Value = ""
                         }
