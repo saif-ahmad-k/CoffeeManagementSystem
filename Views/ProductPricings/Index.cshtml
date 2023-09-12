@@ -66,56 +66,56 @@
                                 <table id="example" class="table table-stripped mb-0 datatables">
                                     <thead>
                                         <tr>
-                                            <th>
+                                            <th style="width: 10%;">
                                                 @Html.DisplayName("Origin")
                                             </th>
-                                            <th>
+                                            <th style="width: 10%;">
                                                 @Html.DisplayName("Grade")
                                             </th>
-                                            <th>
+                                            <th style="width: 10%;">
                                                 @Html.DisplayName("Bags")
                                             </th>
-                                            <th>
+                                            <th style="width: 10%;">
                                                 @Html.DisplayName("Shipping Period")
                                             </th>
-                                            <th>
+                                            <th style="width: 10%;">
                                                 @Html.DisplayName("Price")
                                             </th>
-                                            <th>
+                                            <th style="width: 10%;">
                                                 @Html.DisplayName("Crops")
                                             </th>
-                                            <th>
+                                            <th style="width: 10%;">
                                                 @Html.DisplayName("Terms")
                                             </th>
-                                            <th></th>
+                                            <th style="width: 10%;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model.ProductPricingList)
                                         {
                                             <tr>
-                                                <td>
+                                                <td style="width: 10%;">
                                                     @Html.DisplayFor(modelItem => item.tblProduct.tblCategory.Name)
                                                 </td>
-                                                <td>
+                                                <td style="width: 10%;">
                                                     @Html.DisplayFor(modelItem => item.tblProduct.Name)
                                                 </td>
-                                                <td>
+                                                <td style="width: 10%;">
                                                     @Html.DisplayFor(modelItem => item.Bags)
                                                 </td>
-                                                <td>
+                                                <td style="width: 10%;">
                                                     @Html.DisplayFor(modelItem => item.tblShippingPeriod.Name)
                                                 </td>
-                                                <td>
+                                                <td style="width: 10%;">
                                                     @Html.DisplayFor(modelItem => item.Price)
                                                 </td>
-                                                <td>
+                                                <td style="width: 10%;">
                                                     @Html.DisplayFor(modelItem => item.tblCrop.CropName)
                                                 </td>
-                                                <td>
+                                                <td style="width: 10%;">
                                                     @Html.DisplayFor(modelItem => item.tblTerm.Name)
                                                 </td>
-                                                <td>
+                                                <td style="width: 10%;">
                                                     @Html.ActionLink("Edit", "Edit", new { id = item.ID })
                                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                                                 </td>

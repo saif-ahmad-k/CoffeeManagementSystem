@@ -176,6 +176,11 @@
     <Compile Include="Controllers\ShippingPeriodsController.cs" />
     <Compile Include="Controllers\tblCategoriesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="FOBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FOBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="FOBOfferListDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -714,6 +719,17 @@
       <DependentUpon>FOBOfferListDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="FOBDataSet.xsc">
+      <DependentUpon>FOBDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="FOBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FOBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="FOBDataSet.xss">
+      <DependentUpon>FOBDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="FOBOfferListDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FOBOfferListDataSet.Designer.cs</LastGenOutput>

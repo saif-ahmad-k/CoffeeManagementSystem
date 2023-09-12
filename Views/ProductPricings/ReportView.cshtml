@@ -79,6 +79,16 @@
                                 </td>
                                 <td style="vertical-align: bottom;">
                                     <p class="headings">
+                                        Bags
+                                    </p>
+                                </td>
+                                <td style="vertical-align: bottom;">
+                                    <p class="headings">
+                                        Crop Name
+                                    </p>
+                                </td>
+                                <td style="vertical-align: bottom;">
+                                    <p class="headings">
                                         Terms
                                     </p>
                                 </td>
@@ -104,54 +114,74 @@
                                     </tr>
                                     if (!prodsList.Contains(prod))
                                     {
-                                        <tr>
-                                            <td>
-                                                <p class="normaltext">
-                                                    @roww["Name"].ToString()
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p class="normaltext">
-                                                    @roww["Name2"].ToString()
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p class="normaltext">
-                                                    @roww["Price"].ToString()
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p class="normaltext">
-                                                    @roww["TermName"].ToString()
-                                                </p>
-                                            </td>
-                                        </tr>
+                        <tr>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["Name"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["Name2"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["Price"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["Bags"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["CropName"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["TermName"].ToString()
+                                </p>
+                            </td>
+                        </tr>
                                     }
                                 }
                                 else if (!prodsList.Contains(prod))
                                 {
-                                    <tr>
-                                        <td>
-                                            <p class="normaltext">
-                                                @roww["Name"].ToString()
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="normaltext">
-                                                @roww["Name2"].ToString()
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="normaltext">
-                                                @roww["Price"].ToString()
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="normaltext">
-                                                @roww["TermName"].ToString()
-                                            </p>
-                                        </td>
-                                    </tr>
+                        <tr>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["Name"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["Name2"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["Price"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["Bags"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["CropName"].ToString()
+                                </p>
+                            </td>
+                            <td>
+                                <p class="normaltext">
+                                    @roww["TermName"].ToString()
+                                </p>
+                            </td>
+                        </tr>
                                 }
                             }
 
