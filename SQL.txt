@@ -1,0 +1,625 @@
+USE [master]
+GO
+/****** Object:  Database [CoffeePricingDB]    Script Date: 9/11/2023 11:08:41 PM ******/
+CREATE DATABASE [CoffeePricingDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'CoffeePricingDBq', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\CoffeePricingDBq.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'CoffeePricingDBq_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\CoffeePricingDBq_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [CoffeePricingDB] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [CoffeePricingDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [CoffeePricingDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [CoffeePricingDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [CoffeePricingDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [CoffeePricingDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [CoffeePricingDB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET RECOVERY FULL 
+GO
+ALTER DATABASE [CoffeePricingDB] SET  MULTI_USER 
+GO
+ALTER DATABASE [CoffeePricingDB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [CoffeePricingDB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [CoffeePricingDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [CoffeePricingDB] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [CoffeePricingDB] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [CoffeePricingDB] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'CoffeePricingDB', N'ON'
+GO
+ALTER DATABASE [CoffeePricingDB] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [CoffeePricingDB] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [CoffeePricingDB]
+GO
+/****** Object:  Table [dbo].[tblCategory]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCategory](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](255) NOT NULL,
+	[UserID] [uniqueidentifier] NOT NULL,
+	[Sequance] [int] NULL,
+ CONSTRAINT [PK__tblCateg__3214EC2701D4C0F8] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblCrop]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCrop](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[CropName] [nvarchar](100) NULL,
+	[UserID] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_tblCrop] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblProduct]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblProduct](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](255) NOT NULL,
+	[CategoryID] [int] NOT NULL,
+	[UserID] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK__tblProdu__3214EC2780B5AF1C] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblProductPricing]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblProductPricing](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[CreatedDate] [datetime] NOT NULL,
+	[PricingDate] [datetime] NOT NULL,
+	[Price] [nvarchar](100) NULL,
+	[TermID] [int] NULL,
+	[ProductID] [int] NOT NULL,
+	[UserID] [uniqueidentifier] NOT NULL,
+	[ShippingPeriodID] [int] NULL,
+	[IsActive] [bit] NULL,
+	[Bags] [int] NOT NULL,
+	[CropID] [int] NULL,
+ CONSTRAINT [PK__tblProdu__3214EC274A7AAEE9] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblRequestCredentials]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblRequestCredentials](
+	[Name] [nvarchar](50) NULL,
+	[Company] [nvarchar](50) NULL,
+	[Email] [nvarchar](50) NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_tblRequestCredentials] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblShippingPeriod]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblShippingPeriod](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](255) NOT NULL,
+	[UserID] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK__tblShipp__3214EC2777259691] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblTerms]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblTerms](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) NULL,
+	[UserID] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_tblTerms] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblUser]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblUser](
+	[Id] [uniqueidentifier] NOT NULL,
+	[FullName] [varchar](255) NOT NULL,
+	[Password] [nvarchar](max) NULL,
+	[Email] [nvarchar](200) NULL,
+	[Phone] [nvarchar](50) NULL,
+	[Role] [varchar](40) NULL,
+	[Company] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[tblCategory] ON 
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (1, N'Vietnam- Washed Arabica Crop', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (2, N'Vietnam-Robusta', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (3, N'Laos-Arabica Crop 2022-23', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (4, N'Laos-Robusta Crop 2022-23', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (5, N'Indonesia- Robusta', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (6, N'India – Arabica', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (7, N'India- Robusta', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (8, N'Uganda- Arabica', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (9, N'Uganda- Robusta', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (10, N'Congo - Arabica', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 0)
+GO
+INSERT [dbo].[tblCategory] ([ID], [Name], [UserID], [Sequance]) VALUES (11, N'Rwanda - Arabica', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[tblCategory] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblCrop] ON 
+GO
+INSERT [dbo].[tblCrop] ([ID], [CropName], [UserID]) VALUES (1, N'Default', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+SET IDENTITY_INSERT [dbo].[tblCrop] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblProduct] ON 
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (1, N'Washed Arabica Scr 18', 1, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (2, N'Washed Arabica Scr 16', 1, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (3, N'Washed Arabica Scr 14', 1, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (4, N'Grade 1, Screen 18 Wet Polished ', 2, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (5, N'Grade 1, Screen 16 Wet Polished', 2, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (6, N'Grade 1, Screen 18 Clean', 2, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (7, N'Grade 1, Screen 16 Clean', 2, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (8, N'Grade 1, Screen 18, 2%', 2, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (9, N'Grade 1, Screen 16, 2%', 2, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (10, N'Grade 2, 5% bb', 2, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (11, N'Washed Arabica Scr 18', 3, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (12, N'Washed Arabica Scr 16', 3, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (13, N'FAQ', 3, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (14, N'Scr 18', 4, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (15, N'Scr 16', 4, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (16, N'Scr 13, 5%bb', 4, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (17, N'ELB Gr2, 350bc', 5, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (18, N'ELB Gr2, 400bc', 5, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (19, N'ELB Gr3, 425bc', 5, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (20, N'ELB Gr3, 450bc', 5, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (21, N'80def', 5, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (22, N'120def', 5, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (23, N'150def', 5, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (24, N'Plantation AA', 6, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (25, N'Plantation A', 6, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (26, N'Plantation B', 6, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (27, N'Plantation C ', 1, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (28, N'Robusta Cherry AAA', 7, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (29, N'Robusta Cherry AA', 7, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (30, N'Robusta Cherry A', 7, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (31, N'Robusta Cherry AB', 7, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (32, N'Parchment AA ', 7, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (33, N'Parchment A', 7, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (34, N'Parchment AB', 7, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (35, N'Bugisu AA', 8, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (36, N'Bugisu AB ', 8, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (37, N'Drugar', 8, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (38, N'Screen 18 ', 9, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (39, N'Screen 15', 9, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (40, N'Screen 12', 9, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (41, N'Hans coffee', 8, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (42, N'123', 9, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (1042, N'Kivu 4 ', 10, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (1043, N'Kivu 3 ', 10, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (1044, N'Fully washed screen 15+ specialty LOT 44 - 33 Bags', 11, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (1045, N'Fully washed screen 15+', 11, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (1046, N'Semi washed screen 15+', 11, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (1047, N'Fully washed screen 15+ specialty LOT 46 - 26 bags', 11, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblProduct] ([ID], [Name], [CategoryID], [UserID]) VALUES (1048, N'BHP1199 ', 9, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+SET IDENTITY_INSERT [dbo].[tblProduct] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblProductPricing] ON 
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1, CAST(N'2023-03-22T18:04:49.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'+30', 1, 1, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2, CAST(N'2023-03-22T18:05:19.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'123 cts/lb', 0, 38, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (3, CAST(N'2023-03-22T18:05:41.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'110 cts/lb', 0, 38, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (4, CAST(N'2023-03-22T18:07:36.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'105 cts/lb', 0, 39, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (5, CAST(N'2023-03-22T18:07:55.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'96 cts/lb', 0, 40, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (6, CAST(N'2023-03-22T18:08:25.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'+10 against May', 0, 35, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (7, CAST(N'2023-03-22T18:08:46.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'+9 against May', 0, 36, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (8, CAST(N'2023-03-22T18:09:13.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'-29 against May', 0, 37, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (9, CAST(N'2023-03-22T18:10:24.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'+110 against May', 0, 39, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (10, CAST(N'2023-03-22T18:11:12.000' AS DateTime), CAST(N'2023-03-22T00:00:00.000' AS DateTime), N'+200', 0, 39, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (11, CAST(N'2023-03-24T10:53:41.090' AS DateTime), CAST(N'2023-03-24T10:53:41.090' AS DateTime), N'105 cts/lb', 0, 39, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (12, CAST(N'2023-03-24T10:53:42.810' AS DateTime), CAST(N'2023-03-24T10:53:42.810' AS DateTime), N'105 cts/lb', 0, 39, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (13, CAST(N'2023-03-24T10:54:20.793' AS DateTime), CAST(N'2023-03-24T10:54:20.793' AS DateTime), N'115 cts/lb', 0, 38, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (14, CAST(N'2023-03-24T10:54:41.733' AS DateTime), CAST(N'2023-03-24T10:54:41.733' AS DateTime), N'95 cts/lb', 0, 40, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (15, CAST(N'2023-03-24T10:55:08.000' AS DateTime), CAST(N'2023-03-24T10:55:08.000' AS DateTime), N'+40 against May', 1, 5, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (16, CAST(N'2023-03-24T10:55:25.903' AS DateTime), CAST(N'2023-03-24T10:55:25.903' AS DateTime), N'+70', 1, 8, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (17, CAST(N'2023-03-24T10:55:48.420' AS DateTime), CAST(N'2023-03-24T10:55:48.420' AS DateTime), N'-30', 0, 17, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (18, CAST(N'2023-03-24T10:56:04.937' AS DateTime), CAST(N'2023-03-24T10:56:04.937' AS DateTime), N'+11', 0, 35, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (19, CAST(N'2023-03-24T10:56:22.653' AS DateTime), CAST(N'2023-03-24T10:56:22.653' AS DateTime), N'-30', 0, 37, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (20, CAST(N'2023-03-24T13:28:20.477' AS DateTime), CAST(N'2023-03-24T13:28:20.477' AS DateTime), N'1111', 1, 42, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', NULL, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1002, CAST(N'2023-03-27T12:54:32.293' AS DateTime), CAST(N'2023-03-27T12:54:32.293' AS DateTime), N'+11', 0, 35, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1003, CAST(N'2023-03-27T12:54:53.527' AS DateTime), CAST(N'2023-03-27T12:54:53.527' AS DateTime), N'+7', 0, 36, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1004, CAST(N'2023-03-27T12:55:20.290' AS DateTime), CAST(N'2023-03-27T12:55:20.290' AS DateTime), N'+260', 0, 38, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1005, CAST(N'2023-03-27T12:55:36.303' AS DateTime), CAST(N'2023-03-27T12:55:36.303' AS DateTime), N'+160', 0, 39, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1006, CAST(N'2023-03-27T12:55:55.553' AS DateTime), CAST(N'2023-03-27T12:55:55.553' AS DateTime), N'+30', 0, 40, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1007, CAST(N'2023-03-27T12:56:13.290' AS DateTime), CAST(N'2023-03-27T12:56:13.290' AS DateTime), N'+5', 1, 24, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1008, CAST(N'2023-03-27T12:56:28.617' AS DateTime), CAST(N'2023-03-27T12:56:28.617' AS DateTime), N'+3', 1, 25, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1009, CAST(N'2023-03-27T12:57:44.513' AS DateTime), CAST(N'2023-03-27T12:57:44.513' AS DateTime), N'+40', 1, 14, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1010, CAST(N'2023-03-27T12:58:05.217' AS DateTime), CAST(N'2023-03-27T12:58:05.217' AS DateTime), N'+80 against may', 1, 6, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1011, CAST(N'2023-03-27T12:58:41.753' AS DateTime), CAST(N'2023-03-27T12:58:41.753' AS DateTime), N'115 cts/lb', 0, 38, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 2, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (1012, CAST(N'2023-03-27T13:08:11.977' AS DateTime), CAST(N'2023-03-27T13:08:11.977' AS DateTime), N'+260 $/MT', 0, 38, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 3, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2002, CAST(N'2023-05-15T10:43:48.267' AS DateTime), CAST(N'2023-05-15T10:43:48.267' AS DateTime), N'+210', 0, 38, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1005, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2003, CAST(N'2023-05-15T10:44:17.173' AS DateTime), CAST(N'2023-05-15T10:44:17.173' AS DateTime), N'+140', 0, 39, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1004, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2004, CAST(N'2023-05-15T10:44:40.110' AS DateTime), CAST(N'2023-05-15T10:44:40.110' AS DateTime), N'+40', 0, 40, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1004, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2005, CAST(N'2023-05-15T10:45:14.907' AS DateTime), CAST(N'2023-05-15T10:45:14.907' AS DateTime), N'+8', 0, 35, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2006, CAST(N'2023-05-15T10:45:34.970' AS DateTime), CAST(N'2023-05-15T10:45:34.970' AS DateTime), N'+6', 0, 36, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2007, CAST(N'2023-05-15T10:45:58.580' AS DateTime), CAST(N'2023-05-15T10:45:58.580' AS DateTime), N'-31', 0, 37, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1003, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2008, CAST(N'2023-07-17T15:28:05.000' AS DateTime), CAST(N'2023-07-17T00:00:00.000' AS DateTime), N'+290', 0, 38, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2009, CAST(N'2023-07-17T15:28:27.000' AS DateTime), CAST(N'2023-07-17T00:00:00.000' AS DateTime), N'+200', 0, 39, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2010, CAST(N'2023-07-17T15:28:50.000' AS DateTime), CAST(N'2023-07-17T00:00:00.000' AS DateTime), N'+110', 0, 40, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2011, CAST(N'2023-07-17T15:29:31.240' AS DateTime), CAST(N'2023-07-17T15:29:31.240' AS DateTime), N'+5', 0, 35, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2012, CAST(N'2023-07-17T15:30:18.753' AS DateTime), CAST(N'2023-07-17T15:30:18.753' AS DateTime), N'level', 0, 36, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2013, CAST(N'2023-07-17T15:42:37.000' AS DateTime), CAST(N'2023-07-17T00:00:00.000' AS DateTime), N'$8.50/kg', 0, 1044, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2014, CAST(N'2023-07-17T15:43:16.000' AS DateTime), CAST(N'2023-07-17T00:00:00.000' AS DateTime), N'$8.50/kg', 0, 1047, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2015, CAST(N'2023-07-17T15:43:44.000' AS DateTime), CAST(N'2023-07-17T00:00:00.000' AS DateTime), N'$6.00/kg', 0, 1045, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2016, CAST(N'2023-07-17T15:44:48.000' AS DateTime), CAST(N'2023-07-17T00:00:00.000' AS DateTime), N'$4.30/kg', 0, 1046, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2017, CAST(N'2023-07-17T15:50:48.943' AS DateTime), CAST(N'2023-07-17T15:50:48.943' AS DateTime), N'+10', 1, 1042, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1009, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2018, CAST(N'2023-07-17T16:06:05.540' AS DateTime), CAST(N'2023-07-17T16:06:05.540' AS DateTime), N'90 cts/lb', 0, 1048, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2019, CAST(N'2023-09-04T19:41:39.440' AS DateTime), CAST(N'2023-09-04T19:41:39.440' AS DateTime), N'345', 0, 13, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1012, 0, 1, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2020, CAST(N'2023-09-04T20:22:07.003' AS DateTime), CAST(N'2023-09-04T20:22:07.003' AS DateTime), N'890', 0, 27, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1012, 0, 9, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2021, CAST(N'2023-09-11T23:04:41.107' AS DateTime), CAST(N'2023-09-11T23:04:41.107' AS DateTime), N'21', 1, 4, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1008, 1, 12, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2022, CAST(N'2023-09-11T23:05:08.573' AS DateTime), CAST(N'2023-09-11T23:05:08.573' AS DateTime), N'32', 1, 1042, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1009, 1, 21, 1)
+GO
+INSERT [dbo].[tblProductPricing] ([ID], [CreatedDate], [PricingDate], [Price], [TermID], [ProductID], [UserID], [ShippingPeriodID], [IsActive], [Bags], [CropID]) VALUES (2023, CAST(N'2023-09-11T23:05:29.967' AS DateTime), CAST(N'2023-09-11T23:05:29.967' AS DateTime), N'21', 1, 24, N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', 1010, 1, 12, 1)
+GO
+SET IDENTITY_INSERT [dbo].[tblProductPricing] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblShippingPeriod] ON 
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1, N'Jan', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (2, N'Feb', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (3, N'March', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1002, N'April', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1003, N'May', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1004, N'June', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1005, N'July', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1008, N'Aug', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1009, N'Sept', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1010, N'Oct', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1011, N'Nov', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblShippingPeriod] ([ID], [Name], [UserID]) VALUES (1012, N'Dec', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+SET IDENTITY_INSERT [dbo].[tblShippingPeriod] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblTerms] ON 
+GO
+INSERT [dbo].[tblTerms] ([ID], [Name], [UserID]) VALUES (0, N'Default', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+INSERT [dbo].[tblTerms] ([ID], [Name], [UserID]) VALUES (1, N'Default-again', N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b')
+GO
+SET IDENTITY_INSERT [dbo].[tblTerms] OFF
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'0b27bb6c-660e-47a0-98ec-05bf6dbecc61', N'Mellowers', N'eExCNXhQUG1qc1loZElEYXNmZE9CTXAvU3F5TmI3UGRiVlo0aU9YaFBwTT0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'76cc7b1c-8774-4c63-8881-10a6185c357c', N'WM', N'eklyS3NSZzlkZjgrSUZyeFdOd3BTRUJwb2UveGNMa1oyMkVRQ0lMQW1qdz0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'6df31ef3-e86b-4d71-954c-1da588b0b9b2', N'Bijdendijk', N'UzBBbEkxcVJaL2RNTmljSWJXS3VvRlNsOTZZYllUZjVmWmxHY1NPL1JjZz0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'f161a87b-bb05-40c1-8cf5-207d5d3be361', N'Sopex', N'cmlCN2h6SE9BRXdqYWovQ3hVa2pla2FGZi9KWmt3a05KcExrcXV2TnZlWT0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'48e5fc87-f5d3-45e3-ae2a-275291a06d0b', N'Administrator', N'Y1ZqR2VwWkhHTTMyb1pKMjRPOUhVVlZPN05QdFZEczV6Tlg1OGt4bVVHWT0', N'admin@yopmail.com', N'56896652', N'Admin', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'2062176e-4639-48f1-8f64-2b488acdad04', N'JDH', N'V2RtcVg3L25hajExdlJ2ZnhQQjZhZz09', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'0590c075-31af-4ec7-b023-2c796c8298d9', N'Facta', N'TTFnamt1RVBvdFYzclpCYmN5d29UN3h1TEdtRVQrNVdKQU14bldzdWJJND0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'9e736ab6-3f56-48ae-a196-37225296c44c', N'Volcafe', N'ZThWMnNONE40VnRIRVRLcVlTUy8xdjNaZWF0cUhJWWUyMytTb0NIcjk2RT0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'f87c56ef-be3a-4c88-a7ea-428821e86560', N'GCM', N'ZkFid2VCRmNLT3pHMStXVnFBT3FxMDg1K3gzeHFRUDBUUVh4YXllbUFHWT0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'bb7da67e-aca2-41e7-bf90-5fc1f5af6431', N'Briz', N'eExCNXhQUG1qc1loZElEYXNmZE9CTXAvU3F5TmI3UGRiVlo0aU9YaFBwTT0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'b53b5cc7-6aa5-41e4-9e6b-926da632d6a7', N'Sucden', N'Mk53OFFkajdUVGJGN0hNQ3g3RDNXZjFoMk12YVcwQlZJbDJPMGI5eVAyUT0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'b9bcfe06-7b19-4728-a4d6-ab4682093b45', N'IFS', N'bDNlK0dNbVBnek1qQ0dRSno3cThBTmtVclBqeU5BWUlEb1VJZVF2eWpTQT0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'85c8b69c-84c9-463c-be7c-bd8460336f48', N'Ghislain Masamba', N'MmpNa0NOb2orZDNUYnRuRkQ4THlBQT09', N'masambaghislain@gmail.com', N'+256772511210', N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'29e06675-33af-46a3-8d54-c7de0083779a', N'KIC', N'NTl6dVliVXNDY3U3c1QrK25Wb0g4ZG9XaDkzZGtYcWFYNFhRd1BzZHFUWT0', NULL, NULL, N'Normal', NULL)
+GO
+INSERT [dbo].[tblUser] ([Id], [FullName], [Password], [Email], [Phone], [Role], [Company]) VALUES (N'02dec92f-e48c-4812-aad2-f97cef782ced', N'Terracore', N'Y3VkY3kwZlRxNms5LzRUL3pRTDBQTWExWGNlaC83WDNwMndpRmYxUEVzOD0', NULL, NULL, N'Normal', NULL)
+GO
+ALTER TABLE [dbo].[tblCategory]  WITH CHECK ADD  CONSTRAINT [FK__tblCatego__UserI__44FF419A] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblUser] ([Id])
+GO
+ALTER TABLE [dbo].[tblCategory] CHECK CONSTRAINT [FK__tblCatego__UserI__44FF419A]
+GO
+ALTER TABLE [dbo].[tblCrop]  WITH CHECK ADD  CONSTRAINT [FK_tblCrop_tblUser] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblUser] ([Id])
+GO
+ALTER TABLE [dbo].[tblCrop] CHECK CONSTRAINT [FK_tblCrop_tblUser]
+GO
+ALTER TABLE [dbo].[tblProduct]  WITH CHECK ADD  CONSTRAINT [FK__tblProduc__Categ__46E78A0C] FOREIGN KEY([CategoryID])
+REFERENCES [dbo].[tblCategory] ([ID])
+GO
+ALTER TABLE [dbo].[tblProduct] CHECK CONSTRAINT [FK__tblProduc__Categ__46E78A0C]
+GO
+ALTER TABLE [dbo].[tblProduct]  WITH CHECK ADD  CONSTRAINT [FK__tblProduc__UserI__47DBAE45] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblUser] ([Id])
+GO
+ALTER TABLE [dbo].[tblProduct] CHECK CONSTRAINT [FK__tblProduc__UserI__47DBAE45]
+GO
+ALTER TABLE [dbo].[tblProductPricing]  WITH CHECK ADD  CONSTRAINT [FK__tblProduc__Produ__4222D4EF] FOREIGN KEY([ProductID])
+REFERENCES [dbo].[tblProduct] ([ID])
+GO
+ALTER TABLE [dbo].[tblProductPricing] CHECK CONSTRAINT [FK__tblProduc__Produ__4222D4EF]
+GO
+ALTER TABLE [dbo].[tblProductPricing]  WITH CHECK ADD  CONSTRAINT [FK__tblProduc__Shipp__4316F928] FOREIGN KEY([ShippingPeriodID])
+REFERENCES [dbo].[tblShippingPeriod] ([ID])
+GO
+ALTER TABLE [dbo].[tblProductPricing] CHECK CONSTRAINT [FK__tblProduc__Shipp__4316F928]
+GO
+ALTER TABLE [dbo].[tblProductPricing]  WITH CHECK ADD  CONSTRAINT [FK__tblProduc__UserI__440B1D61] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblUser] ([Id])
+GO
+ALTER TABLE [dbo].[tblProductPricing] CHECK CONSTRAINT [FK__tblProduc__UserI__440B1D61]
+GO
+ALTER TABLE [dbo].[tblProductPricing]  WITH CHECK ADD  CONSTRAINT [FK_tblProductPricing_tblCrop] FOREIGN KEY([CropID])
+REFERENCES [dbo].[tblCrop] ([ID])
+GO
+ALTER TABLE [dbo].[tblProductPricing] CHECK CONSTRAINT [FK_tblProductPricing_tblCrop]
+GO
+ALTER TABLE [dbo].[tblProductPricing]  WITH CHECK ADD  CONSTRAINT [FK_tblProductPricing_tblTerms] FOREIGN KEY([TermID])
+REFERENCES [dbo].[tblTerms] ([ID])
+GO
+ALTER TABLE [dbo].[tblProductPricing] CHECK CONSTRAINT [FK_tblProductPricing_tblTerms]
+GO
+ALTER TABLE [dbo].[tblShippingPeriod]  WITH CHECK ADD  CONSTRAINT [FK__tblShippi__UserI__4D94879B] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblUser] ([Id])
+GO
+ALTER TABLE [dbo].[tblShippingPeriod] CHECK CONSTRAINT [FK__tblShippi__UserI__4D94879B]
+GO
+ALTER TABLE [dbo].[tblTerms]  WITH CHECK ADD  CONSTRAINT [FK_tblTerms_tblUser] FOREIGN KEY([UserID])
+REFERENCES [dbo].[tblUser] ([Id])
+GO
+ALTER TABLE [dbo].[tblTerms] CHECK CONSTRAINT [FK_tblTerms_tblUser]
+GO
+/****** Object:  StoredProcedure [dbo].[pFOBOfferList]    Script Date: 9/11/2023 11:08:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[pFOBOfferList]
+AS
+BEGIN
+	WITH CTE AS (
+		SELECT
+			pp.*,
+			t.Name AS 'TermName',
+			c.Name AS 'Name1',
+			c.Sequance 'seqname',
+			p.Name AS 'Name',
+			s.Name as 'Name2',
+			u.FullName AS 'UserName',
+			cp.CropName AS 'CropName',
+			RANK() OVER (PARTITION BY p.Name ORDER BY pp.PricingDate DESC) AS RowRank
+		FROM [dbo].[tblProductPricing] pp
+		INNER JOIN [dbo].[tblProduct] p ON p.ID = pp.ProductID
+		INNER JOIN [dbo].[tblCategory] c ON c.ID = p.CategoryID
+		INNER JOIN [dbo].[tblUser] u ON u.Id = pp.UserID
+		LEFT JOIN [dbo].[tblShippingPeriod] s ON s.Id = pp.ShippingPeriodID
+		INNER JOIN [dbo].[tblTerms] t ON pp.TermID = t.ID
+		INNER JOIN [dbo].[tblCrop] cp ON pp.CropID = cp.ID
+		where pp.IsActive = 1
+		--WHERE p.Name LIKE '%Screen 15%' AND c.Name = 'Uganda- Robusta'
+	)
+	SELECT *, TermName AS 'TermName'
+	FROM CTE
+	WHERE RowRank = 1
+	ORDER BY seqname, Name1;
+END
+GO
+USE [master]
+GO
+ALTER DATABASE [CoffeePricingDB] SET  READ_WRITE 
+GO
