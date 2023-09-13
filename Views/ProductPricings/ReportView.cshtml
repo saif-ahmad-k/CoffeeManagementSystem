@@ -10,7 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 <style>
     page[size="A4"][layout="portrait"] {
-        width: 29.7cm;
+        
         height: 21cm;
     }
 
@@ -22,7 +22,10 @@
     content-wrap {
         padding-bottom: 2.5rem; /* Footer height */
     }
-
+    .tablepdf td {
+        padding: 5px; /* Adjust the padding as needed */
+        margin: 0; /* Remove any margin */
+    }
     .footer {
 /*        position: absolute;
 */        left: 0;
@@ -41,33 +44,16 @@
             <a href="@Url.Action("ReportViewPartial", "ProductPricings")">Download pdf</a>
             <div class="card col-md-12" id="PrintPDF">
                 <div>
-                    <img src="~/Reports/Header.png"  height="150px;" width="100%;" />
+                    <img src="~/Reports/Header.png"  height="150px;" width="100%" />
                 </div>
                 <div class="table-responsive">
                     <table class="tablepdf">
-                        <thead>
-                            <tr>
-                                <th>
-                                </th>
-                                <th>
-                                </th>
-                                <th>
-                                </th>
-                            </tr>
-                        </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+
                             <tr class="borderbottom">
                                 <td>
                                 </td>
-                                <td style="vertical-align: bottom;">
+                                <td style="vertical-align: bottom; width:auto;  ">
                                     <p class="headings">
                                         Shipping Period
                                     </p>
@@ -84,7 +70,7 @@
                                 </td>
                                 <td style="vertical-align: bottom;">
                                     <p class="headings">
-                                        Crop Name
+                                        Crop Year
                                     </p>
                                 </td>
                                 <td style="vertical-align: bottom;">
@@ -101,93 +87,88 @@
                                 if (!catsList.Contains(cat))
                                 {
                                     catsList.Add(cat);
-                                    <tr class="origin-row">
+                                    <tr>
                                         <td>
                                             <p class="catheadings">
                                                 @cat
                                             </p>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
+              
                                     </tr>
                                     if (!prodsList.Contains(prod))
                                     {
-                        <tr>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["Name"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["Name2"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["Price"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["Bags"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["CropName"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["TermName"].ToString()
-                                </p>
-                            </td>
-                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Name"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Name2"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Price"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["Bags"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["CropName"].ToString()
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="normaltext">
+                                                    @roww["TermName"].ToString()
+                                                </p>
+                                            </td>
+                                        </tr>
                                     }
                                 }
                                 else if (!prodsList.Contains(prod))
                                 {
-                        <tr>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["Name"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["Name2"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["Price"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["Bags"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["CropName"].ToString()
-                                </p>
-                            </td>
-                            <td>
-                                <p class="normaltext">
-                                    @roww["TermName"].ToString()
-                                </p>
-                            </td>
-                        </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Name"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Name2"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Price"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["Bags"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["CropName"].ToString()
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="normaltext">
+                                                @roww["TermName"].ToString()
+                                            </p>
+                                        </td>
+                                    </tr>
                                 }
                             }
-
                         </tbody>
-
                     </table>
+
                 </div>
             </div>
         </div>

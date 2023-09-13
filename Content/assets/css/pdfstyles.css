@@ -299,6 +299,7 @@ select.form-control[size] {
 	margin-top: 20px;
 	border-spacing: 0;
 	border-collapse: collapse;
+	width:100%;
 }
 .borderbottom {
 	/*display: inline-block;
@@ -314,7 +315,8 @@ select.form-control[size] {
 	font-weight: bold;
 	font-family: 'Baskerville Old Face';
 	font-size: 14px;
-	width: 220px;
+	width: auto;
+	padding: 10px;
 	height: 10px;
 }
 .catheadings {
@@ -323,13 +325,16 @@ select.form-control[size] {
 	font-family: 'Times New Roman';
 	font-size: 14px;
 	height: 10px;
-	width: 350px;
+	padding: 10px;
+	width: auto;
 }
 .normaltext {
 	color: black;
 	font-family: 'Baskerville Old Face';
 	font-size: 14px;
 	height: 10px;
+	padding: 10px;
+	width: auto;
 }
 /*
 .table.table-white {
